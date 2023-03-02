@@ -1,1 +1,2 @@
 # QRgenerator
+#jdbc
