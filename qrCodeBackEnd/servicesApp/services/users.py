@@ -3,20 +3,33 @@ from ..constants.utils import *
 
 def registerUser(request):
     jsons = json.loads(request.body)
+    if len(jsons["password"]) < 4:
+        resp = sendResponse(400,'Password must be 4 or more characters',jsons["action"])
+        return resp
+    email = jsons['email']
+    try:
+        con = connectDB()
+        cursor = con.cursor()
+        cursor.execute(f"SELECT * FROM t_user WHERE email = '{email}'")
+        if cursor.rowcount != 0:
+            resp = sendResponse(400,'Email is already registered',jsons["action"])
+            return resp
+    except Exception as e:
+        resp = sendResponse(400,'Error while checking email',jsons["action"])
     username = jsons['username']
     firstname = jsons['firstname']
     lastname = jsons['lastname']
-    email = jsons['email']
     password = jsons['password']
     password = passHash(str(password))
     try:
         con = connectDB()
         cursor = con.cursor()
         cursor.execute("INSERT INTO t_user "
-                        f"VALUES (DEFAULT, '{username}', '{lastname}', '{firstname}', '{email}', '{password}', NOW());")
+                        f"VALUES (DEFAULT, '{username}', '{lastname}', '{firstname}', '{email}', '{password}', NOW(),DEFAULT);")
         resp = sendResponse(200,'Success',jsons["action"])
         cursor.close()
         con.commit()
+        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
     except Exception as e:
         resp = sendResponse(400,e,jsons["action"])
     finally:
@@ -29,7 +42,7 @@ def getUsers(request):
     try:
         con = connectDB()
         cursor = con.cursor()
-        cursor.execute("SELECT username FROM t_user")
+        cursor.execute("SELECT username FROM t_user WHERE verified = true")
         columns = cursor.description
         respRow = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
         resp = sendResponse(200,respRow,jsons["action"])
@@ -76,6 +89,29 @@ def loginUser(request):
     finally:
         disconnectDB(con)
     return resp
+#   loginUser
+
+def forgetPassword(request):
+    jsons = json.loads(request.body)
+    email = str(jsons['email'])
+    try:
+        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
+    except Exception as e:
+        resp = sendResponse(400,e,jsons["action"])
+    finally:
+        disconnectDB(con)
+    return resp
+
+def Test(request):
+    jsons = json.loads(request.body)
+    try:
+        # sendMail("altansuhaltanbayar100@gmail.com", mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
+        resp = True
+    except Exception as e:
+        resp = sendResponse(400,e,jsons["action"])
+    # finally:
+    #     print("done")
+    return resp
 
 def mainFunction(reqeust):
     json = checkreg(reqeust)
@@ -92,6 +128,8 @@ def mainFunction(reqeust):
                 resp = getUserInfo(reqeust)
             if json['action'] == 'Login':
                 resp = loginUser(reqeust)
+            if json['action'] == 'Test':
+                resp = Test(reqeust)
         except Exception as e:
             resp = str(e)
     return HttpResponse(resp, content_type="application/json")
