@@ -36,6 +36,6 @@ host='202.131.254.138',
 password='qrcode1234',
 port=5938,  
 
-EMAIL_SENDER = 'sw20d041@mandakh.edu.mn'
-PASS_SENDER = '01311111'
+EMAIL_SENDER = 'mtaxapp@zohomail.com'
+PASS_SENDER = 'N32sH@fGn2NtZAn'
 

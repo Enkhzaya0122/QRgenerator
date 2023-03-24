@@ -16,6 +16,7 @@ def registerUser(request):
             return resp
     except Exception as e:
         resp = sendResponse(400,'Error while checking email',jsons["action"])
+        return resp
     username = jsons['username']
     firstname = jsons['firstname']
     lastname = jsons['lastname']
@@ -23,13 +24,14 @@ def registerUser(request):
     password = passHash(str(password))
     try:
         con = connectDB()
+        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
+        print("Bye")
         cursor = con.cursor()
         cursor.execute("INSERT INTO t_user "
                         f"VALUES (DEFAULT, '{username}', '{lastname}', '{firstname}', '{email}', '{password}', NOW(),DEFAULT);")
         resp = sendResponse(200,'Success',jsons["action"])
         cursor.close()
         con.commit()
-        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
     except Exception as e:
         resp = sendResponse(400,e,jsons["action"])
     finally:
@@ -89,13 +91,13 @@ def loginUser(request):
     finally:
         disconnectDB(con)
     return resp
-#   loginUser
+    # loginUser
 
 def forgetPassword(request):
     jsons = json.loads(request.body)
     email = str(jsons['email'])
     try:
-        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
+        sendMail(email, mailContent['forgotPassword_mail_subject'], mailContent['forgotPassword_mail_content1'])
     except Exception as e:
         resp = sendResponse(400,e,jsons["action"])
     finally:
