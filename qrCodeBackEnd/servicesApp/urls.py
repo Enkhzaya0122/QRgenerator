@@ -6,4 +6,4 @@ urlpatterns = [
     path('users/', users.mainFunction),
     path('qrcode/', qrcode.mainFunction),
 ]
-# vjgjjhgjh
+# vjgjjdwvodwnvow
