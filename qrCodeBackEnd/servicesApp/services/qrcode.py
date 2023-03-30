@@ -1,8 +1,12 @@
 from django.http import HttpResponse
 import pyqrcode
 from ..constants.utils import *
+from rest_framework.decorators import api_view
 
 def qrGenerate(request):
+    if request.method == "GET":
+        resp = sendResponse(400,'Method must be POST',"Error")
+        return resp
     jsons = json.loads(request.body)
     try:
         inputdata = jsons['inputdata']
@@ -86,6 +90,7 @@ def qrDelete(request):
     return resp
     # qrDelete
 
+@api_view(['POST'])
 def mainFunction(reqeust):
     json = checkreg(reqeust)
     if json == False:
