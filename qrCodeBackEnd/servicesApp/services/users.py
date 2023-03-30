@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from ..constants.utils import *
 
+
 def registerUser(request):
     jsons = json.loads(request.body)
     if len(jsons["password"]) < 4:
