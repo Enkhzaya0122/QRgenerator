@@ -11,3 +11,6 @@ def forgot2(request):
 
 def forgot3(request):
     return render(template_name = 'forgot/forgot3.html',request = request)
+
+def register(request):
+    return render(template_name = 'register.html',request = request)
