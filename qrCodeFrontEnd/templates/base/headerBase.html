@@ -73,35 +73,14 @@
               </nav>
               <hr>
               <p class="font-weight-bold p">Enter text to share here</p>
-              
               <div class="box1">
-                <div class="form-group">
-                  <form action="{% url 'index' %}" method="POST">
-                    {% csrf_token %}
-                    <textarea name="my_textarea"></textarea>
-                    <input type="submit" name="submit"/>
-                </form>
-                </div>
+                
               </div>
             </div>
-            <div class="col-sm output" >
-              <nav class="nav2">
-                <a href="#">HOME</a> 
-                <a href="#">GUID</a> 
-                <a href="#">ABOUT</a>
-              </nav><br>
-              <hr>
-              <div class="qrcode mx-auto d-block">
-                <img src="/qrCodeFrontEnd/static/image/qr.png" class="rounded mx-auto d-block" alt="...">
-              </div>
-              <button type="button" class="btn btn-dark">Dark</button>
-            </div>
+         
           </div>
 
-          <div class="mx-auto ">
-            <h2 class="text-center"><b>How do I create a free QR Code?</b></h2>
-            <p  class="text-center">We'll show youhow in just threesimple steps</p>
-          </div>
+        
 
       </div>
     </form>

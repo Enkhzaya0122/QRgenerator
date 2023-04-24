@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from ..constants.utils import *
+import json
 
 
 def registerUser(request):
@@ -135,4 +136,5 @@ def mainFunction(reqeust):
                 resp = Test(reqeust)
         except Exception as e:
             resp = str(e)
+    
     return HttpResponse(resp, content_type="application/json")
