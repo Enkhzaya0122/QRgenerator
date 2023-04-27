@@ -17,7 +17,7 @@ def qrGenerate(request):
         cursor = con.cursor()
         cursor.execute("INSERT INTO t_qrcode "
                         f"VALUES (DEFAULT, '{b64}', '{usernum}','{inputdata}', NOW());")
-        resp = sendResponse(200,'Success',jsons["action"])
+        resp = sendResponse(200,b64,jsons["action"])
         cursor.close()
         con.commit()
     except Exception as e:

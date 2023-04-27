@@ -5,22 +5,29 @@ import json
 
 @api_view(["POST","GET"])
 def index(request):
+    context = {}
     if request.method == 'GET': 
         if request.GET.get('submit'):
-            requestJSON = {
-    "action": "",
-} 
-            requestJSON["action"] = "getUsers"   
-            print(json.dumps(requestJSON)) 
-            r = requests.get("http://127.0.0.1:8080/users/",
+            
+            requestJSON =   {
+                                "action": "",
+                                "inputdata" : "",
+                                "usernum" : "",
+                            } 
+            requestJSON["action"] = "qrGenerate"
+            requestJSON["inputdata"] = request.GET.get('my_textarea')
+            requestJSON["usernum"] = "24"
+            r = requests.post("http://127.0.0.1:8080/qrcode/",
                 data=json.dumps(requestJSON),
                 headers={'Content-Type': 'application/json' }
             )
-            print(r)
-            a = r.text
-            print(a)
+            print("Hello")
+            jsonFile = json.loads(r.text)
+            context =   {
+                            'mymembers': jsonFile['data'],
+                        }
 
-    return render(template_name = 'index.html',request = request)
+    return render(template_name = 'index.html',request = request,context=context)
 
 def forgot1(request):
     return render(template_name = 'forgot/forgot1.html',request = request)

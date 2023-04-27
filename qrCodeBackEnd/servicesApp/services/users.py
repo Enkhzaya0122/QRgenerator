@@ -46,7 +46,8 @@ def getUsers(request):
     try:
         con = connectDB()
         cursor = con.cursor()
-        cursor.execute("SELECT username FROM t_user WHERE verified = true")
+        
+        cursor.execute("SELECT username FROM t_user")
         columns = cursor.description
         respRow = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
         resp = sendResponse(200,respRow,jsons["action"])
