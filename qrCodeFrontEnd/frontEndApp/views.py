@@ -4,6 +4,9 @@ import requests
 import json
 
 @api_view(["POST","GET"])
+def headerBase(request):
+    return render(template_name = 'index.html',request = request)
+
 def index(request):
     context = {}
     if request.method == 'GET': 

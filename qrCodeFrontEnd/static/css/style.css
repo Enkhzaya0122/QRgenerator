@@ -1,7 +1,88 @@
 .include{
+    padding: 1.5%;  
+  }
+  .box1{
+      border:3px solid black; 
+      padding: 2% ;
+  }
+
+  .submitt{
+    margin: 2em;
+    float: center;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+
+  .nav a {
+    float: left;
+    font-size: 17px;
+    width: 18%; /* Four links of equal widths */
+    text-align: center;
+    color: black;
+    
+  }
+
+  .nav2 a {
+    float: left;
+    font-size: 17px;
+    width: 30%; /* Four links of equal widths */
+    text-align: center;
+    color: black;
+
+  }
+
+  .p{
+    font-size: 24px;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .output{
     padding: 1.5%;
-}
-.box1{
-    border:1px solid black; 
-    padding: 20%;
-}
+  }
+
+  .qrcode{
+    border:1px solid black;
+    width: 60%;
+    height: 60%;
+    margin: 5%;
+  }
+  .box2{
+    
+    width: 80%;
+    height: 80%;
+    margin:15%
+  }
+
+  .tailbar{
+      width: 40em;
+      height: 20em;
+      color: black;
+
+      background: #FFFFFF;
+      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+      border-radius: 20px;
+      border-color: black;
+      margin: 3em;
+      padding: 5%;
+  }
+
+  .image{
+    border: 2px solid black ;
+    margin-top: 15%;
+    margin-right: 25%;
+  }
+  .image2{
+    padding-left: 20%
+  }
+
+  
+
+  .t_text{
+    margin: 5%;
+  }
+  .text{
+    font-size: 20px;
+  }
+  
