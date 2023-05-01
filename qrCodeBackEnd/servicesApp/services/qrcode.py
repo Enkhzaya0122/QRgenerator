@@ -22,6 +22,7 @@ def qrGenerate(request):
         con.commit()
     except Exception as e:
         resp = sendResponse(400,str(e),jsons["action"])
+    print(resp)
     return resp
     # qrGenerate
 
