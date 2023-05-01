@@ -24,13 +24,17 @@ def index(request):
                 data=json.dumps(requestJSON),
                 headers={'Content-Type': 'application/json' }
             )
-            print("Hello")
+        
             jsonFile = json.loads(r.text)
             context =   {
                             'mymembers': jsonFile['data'],
                         }
-
+           
     return render(template_name = 'index.html',request = request,context=context)
+
+
+def login(request):
+    return render(template_name = 'login.html',request = request)
 
 def forgot1(request):
     return render(template_name = 'forgot/forgot1.html',request = request)
