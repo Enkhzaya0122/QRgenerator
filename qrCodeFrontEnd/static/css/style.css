@@ -87,6 +87,8 @@
   .textarea { 
     border-style: none; 
     border-color: Transparent; 
-    overflow: auto;        
+    overflow: auto;
+    width: 100%;
+    height: auto;     
   }
   

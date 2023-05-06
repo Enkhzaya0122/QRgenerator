@@ -25,8 +25,20 @@
           <div class="row">
             <div class="col-md  include" >
               <h1>QR generator</h1>
-
-              <!-- <nav class="nav">
+             
+            </div>
+            <div class="col-md  include" >
+              <nav class="nav2">
+                <a href="#">HOME</a> 
+                <a href="#">GUIDE</a> 
+                <a href="#">ABOUT</a>
+              </nav><br>
+              <hr>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md container">
+               <nav class="nav">
                 <a href="#">TEXT</a> 
                 <a href="#">URL</a> 
                 <a href="#">CONTACT</a> 
@@ -34,29 +46,21 @@
                 <a href="#">PHONE</a>
                 
               </nav>
-              <hr> -->
+              <hr>
               <p class="font-weight-bold p">Enter text to share here</p>
               
               <div class="box1">
                 <div class="form-group">
                   <form action="{% url 'index' %}" method="GET">
                     {% csrf_token %}
-                    <textarea class="textarea" name="my_textarea" rows="20" cols="107"></textarea>
+                    <textarea class="textarea" name="my_textarea" rows="20" cols="80"></textarea>
                     <input class="btn btn-dark submitt" type="submit" name="submit"/>
                 </form>
                 </div>
               </div>
-             
             </div>
-            
-            <div class="col-md output" >
-              <!-- <nav class="nav2">
-                <a href="#">HOME</a> 
-                <a href="#">GUIDE</a> 
-                <a href="#">ABOUT</a>
-              </nav><br>
-              <hr> -->
-              <div class="box2 mx-auto ">
+            <div class="col-md">
+              <div class="box2 mx-auto">
                 <div class="qrcode mx-auto d-flex flex-column flex-row">
                   <img src = "data:image/png;base64,{{mymembers}}"/>
                     
