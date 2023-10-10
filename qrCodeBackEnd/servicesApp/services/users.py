@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from ..constants.utils import *
 import json
+from rest_framework.decorators import api_view
 
 
 def registerUser(request):
@@ -26,8 +27,7 @@ def registerUser(request):
     password = passHash(str(password))
     try:
         con = connectDB()
-        sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
-        print("Bye")
+        # sendMail(email, mailContent['validate_mail_subject'], mailContent['validate_mail_content1'])
         cursor = con.cursor()
         cursor.execute("INSERT INTO t_user "
                         f"VALUES (DEFAULT, '{username}', '{lastname}', '{firstname}', '{email}', '{password}', NOW(),DEFAULT);")
@@ -117,7 +117,7 @@ def Test(request):
     # finally:
     #     print("done")
     return resp
-
+@api_view(['POST','GET'])
 def mainFunction(reqeust):
     json = checkreg(reqeust)
     if json == False:

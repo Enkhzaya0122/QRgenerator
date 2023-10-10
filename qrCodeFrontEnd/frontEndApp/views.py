@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 import requests
@@ -10,7 +10,7 @@ def headerBase(request):
     return render(template_name = 'index.html',request = request)
 
 def index(request):
-    context = {}
+    context = {'usernum' : request.session['usernum']}
     if request.method == 'GET':
         if request.GET.get('submit'):
             
@@ -26,16 +26,14 @@ def index(request):
                 data=json.dumps(requestJSON),
                 headers={'Content-Type': 'application/json' }
             )
-        
             jsonFile = json.loads(r.text)
             context =   {
                             'mymembers': jsonFile['data'],
+                            
                         }
     elif request.method == "POST":
-        print("Hello")
         if request.POST.get('download'):
             base64_string = str(request.POST.get('base64_code'))
-            print(base64_string)
             image_bytes = base64.b64decode(base64_string)
             filename = "image.png"
             response = HttpResponse(content_type='image/png')
@@ -46,8 +44,24 @@ def index(request):
                         }
     return render(template_name = 'index.html',request = request,context=context)
 
-
 def login(request):
+    context = {}
+    if request.method == 'POST':
+        requestJSON ={
+                        "action": "Login",
+                        "email" : "",
+                        "password" : "",
+                    } 
+        requestJSON["email"] = request.POST.get('email')
+        requestJSON["password"] = request.POST.get('password')
+        r = requests.post("http://127.0.0.1:8080/users/",
+            data=json.dumps(requestJSON),
+            headers={'Content-Type': 'application/json' }
+        )
+        jsonFile = json.loads(r.text)
+        if jsonFile['data'][0]['usernum']:
+            request.session['usernum'] = jsonFile['data'][0]['usernum']
+            return redirect('index')
     return render(template_name = 'login.html',request = request)
 
 def forgot1(request):
@@ -60,4 +74,26 @@ def forgot3(request):
     return render(template_name = 'forgot/forgot3.html',request = request)
 
 def register(request):
+    context = {}
+    if request.method == 'POST':
+        requestJSON ={
+                        "action": "Register",
+                        "email" : "",
+                        "password" : "",
+                        "username" : "",
+                        "lastname" : "",
+                        "firstname" : "",
+                    } 
+        requestJSON["email"] = request.POST.get('email')
+        requestJSON["password"] = request.POST.get('password')
+        requestJSON["username"] = request.POST.get('username')
+        requestJSON["lastname"] = request.POST.get('lastname')
+        requestJSON["firstname"] = request.POST.get('firstname')
+        r = requests.post("http://127.0.0.1:8080/users/",
+            data=json.dumps(requestJSON),
+            headers={'Content-Type': 'application/json' }
+        )
+        jsonFile = json.loads(r.text)
+        if jsonFile['data'] == 'Success':
+            redirect('login')
     return render(template_name = 'register.html',request = request)

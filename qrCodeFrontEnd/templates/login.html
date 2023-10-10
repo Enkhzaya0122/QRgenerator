@@ -55,12 +55,13 @@
                 <h3>Login</h3>
 
                 <div class="m-5">
-                    <form>
+                    <form method = 'POST'>
+                      {% csrf_token %}
                         <div class="form-group">
-                          <input type="email" class="form-control m-2" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                          <input type="email" class="form-control m-2" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email">
                         </div>
                         <div class="form-group">
-                          <input type="password" class="form-control m-2" id="exampleInputPassword1" placeholder="Password">
+                          <input type="password" class="form-control m-2" id="exampleInputPassword1" name="password" placeholder="Password">
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-dark l-button d-flex justify-content-center">Login</button>
